@@ -40,7 +40,7 @@
         p.result-summary-item
           | 使ったマーブル数
           span.count(v-text='marbleQuantityTotal')
-          | 枚
+          | 個
       ul.result-progress
         li.result-progress-item(v-for="result in results")
           span.level(v-text="result.level")
@@ -78,9 +78,10 @@ export default {
   methods: {
     execute() {
       let level = parseInt(this.initLevel, 10)
+      let last
       this.results = []
-      while( level < this.goalLevel ) {
-        console.log(level)
+      const loop = () => {
+        if(level >= this.goalLevel) return;
         const blessing = this.isUsingBlessingScroll(level)
         const marble = this.isUsingMarble(level)
         
@@ -97,7 +98,10 @@ export default {
           blessingQuantity: blessingQuantity,
           marbleQuantity: marbleQuantity
         })
+        
+        setTimeout(loop, 32)
       }
+      loop()
     },
     
     challenge(level, useBlessingScroll, useMarble) {
@@ -163,6 +167,7 @@ export default {
 .result {
   &-summary {
     &-item {
+      display: inline-block;
       width: 360px;
       padding: 4px 0;
       

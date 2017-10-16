@@ -41,6 +41,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.information {
+  margin-top: 20px;
+}
 .table {
   width: 100%;
   border-collapse: collapse;
